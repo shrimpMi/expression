@@ -2,6 +2,7 @@ package per.zk.expression.base;
 
 import per.zk.expression.comparison.*;
 import per.zk.expression.logical.And;
+import per.zk.expression.logical.Not;
 import per.zk.expression.logical.Or;
 import per.zk.expression.logical.Third;
 import per.zk.expression.math.*;
@@ -32,7 +33,7 @@ public class PostfixExpressionBuilder {
         {
             this.add("+");this.add("-");this.add("*");this.add("/");this.add("%"); this.add(">");this.add("==");
             this.add("<");this.add(">=");this.add("<=");this.add("!="); this.add("||");this.add("&&");
-            this.add("(");this.add(")");this.add("?");this.add(":");
+            this.add("(");this.add(")");this.add("?");this.add(":");this.add("!");
         }
     };
 
@@ -45,7 +46,7 @@ public class PostfixExpressionBuilder {
             this.put(">",6);this.put(">=",6);this.put("<=",6);this.put("<",6);//
             this.put("==",7);this.put("!=",7);//
             this.put("&&",8);this.put("||",8);//
-            this.put("?",9);this.put(":",9);
+            this.put("?",9);this.put(":",9);this.put("!",2);
         }
     };
 
@@ -190,56 +191,59 @@ public class PostfixExpressionBuilder {
             }
             /***如果扫描的项目是一个二元运算符，则对栈的顶上两个操作数执行该运算。**/
             Expression e1 = stack.pollLast();
-            Expression e2 = stack.pollLast();
             //如果是算数运算
             switch (st) {
                 /**以下是算数运算**/
                 case "+":
-                    stack.offer(new Add(e2,e1));
+                    stack.offer(new Add(stack.pollLast(),e1));
                     break;
                 case "-":
-                    stack.offer(new Sub(e2,e1));
+                    stack.offer(new Sub(stack.pollLast(),e1));
                     break;
                 case "*":
-                    stack.offer(new Multiply(e2,e1));
+                    stack.offer(new Multiply(stack.pollLast(),e1));
                     break;
                 case "/":
-                    stack.offer(new Divide(e2,e1));
+                    stack.offer(new Divide(stack.pollLast(),e1));
                     break;
                 case "%":
-                    stack.offer(new Modulo(e2,e1));
+                    stack.offer(new Modulo(stack.pollLast(),e1));
                     break;
                 /**以下是逻辑运算 	>,>=,<,<=	默认是数值比较大小 转成Double双精度比较**/
                 case ">":
-                    stack.offer(new Gt(e2,e1));
+                    stack.offer(new Gt(stack.pollLast(),e1));
                     break;
                 case ">=":
-                    stack.offer(new Gte(e2,e1));
+                    stack.offer(new Gte(stack.pollLast(),e1));
                     break;
                 case "<":
-                    stack.offer(new Lt(e2,e1));
+                    stack.offer(new Lt(stack.pollLast(),e1));
                     break;
                 case "<=":
-                    stack.offer(new Lte(e2,e1));
+                    stack.offer(new Lte(stack.pollLast(),e1));
                     break;
                 /** ==,!= 此两类比较麻烦  **/
                 case "==":
                     //目前只考虑字符串和数值相等比较
-                    stack.offer(new Eq(e2,e1));
+                    stack.offer(new Eq(stack.pollLast(),e1));
                     break;
                 case "!=":
-                    stack.offer(new Neq(e2,e1));
+                    stack.offer(new Neq(stack.pollLast(),e1));
                     break;
                 /**以下默认是两个Boolean型进行运算***/
                 case "&&":
-                    stack.offer(new And(e2,e1));
+                    stack.offer(new And(stack.pollLast(),e1));
                     break;
                 case "||":
-                    stack.offer(new Or(e2,e1));
+                    stack.offer(new Or(stack.pollLast(),e1));
                     break;
                 case "?":
+                    Expression e2 = stack.pollLast();
                     Expression e3 = stack.pollLast();
                     stack.offer(new Third(e3,e2,e1));
+                    break;
+                case "!":
+                    stack.offer(new Not(e1));
                     break;
                 default:
                     break;

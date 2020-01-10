@@ -38,6 +38,13 @@ public class Neq extends Expression {
     public Object interpret(Context ctx) {
         Object l = left.interpret(ctx);
         Object r = right.interpret(ctx);
+        if(l==null || r==null){
+            if(l==null && r==null){
+                return false;
+            }else{
+                return true;
+            }
+        }
         if(l instanceof String){
             if(!(r instanceof String)){
                 return true;

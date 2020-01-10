@@ -38,6 +38,13 @@ public class Eq extends Expression {
     public Object interpret(Context ctx) {
         Object l = left.interpret(ctx);
         Object r = right.interpret(ctx);
+        if(l==null || r==null){
+            if(l==null && r==null){
+                return true;
+            }else{
+                return false;
+            }
+        }
         if(l instanceof String){
             if(!(r instanceof String)){
                 return false;
