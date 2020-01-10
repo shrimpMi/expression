@@ -17,20 +17,6 @@ public class Not extends Expression {
     public Not(Expression exp){
         this.exp = exp;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Not)
-        {
-            return exp.equals(
-                    ((Not)obj).exp);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
 
     @Override
     public Object interpret(Context ctx) {

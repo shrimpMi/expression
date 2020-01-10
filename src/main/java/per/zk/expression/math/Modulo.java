@@ -19,19 +19,6 @@ public class Modulo extends Expression {
         this.left = left;
         this.right = right;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Modulo){
-            return left.equals(((Modulo)obj).left) &&
-                    right.equals(((Modulo)obj).right);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
 
     @Override
     public Object interpret(Context ctx) {

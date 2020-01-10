@@ -19,19 +19,6 @@ public class Third extends Expression {
         this.left = left;
         this.right = right;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Third){
-            return exp.equals(((Third)obj).exp) && left.equals(((Third)obj).left) &&
-                    right.equals(((Third)obj).right);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
 
     @Override
     public Object interpret(Context ctx) {

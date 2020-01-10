@@ -16,19 +16,6 @@ public class Constant extends Expression{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Constant){
-            return this.value == ((Constant)obj).value;
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
-
-    @Override
     public Object interpret(Context ctx) {
         return value;
     }

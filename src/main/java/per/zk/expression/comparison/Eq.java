@@ -19,20 +19,6 @@ public class Eq extends Expression {
         this.left = left;
         this.right = right;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Eq)
-        {
-            return left.equals(((Eq)obj).left) &&
-                    right.equals(((Eq)obj).right);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
 
     @Override
     public Object interpret(Context ctx) {

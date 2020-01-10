@@ -19,19 +19,6 @@ public class Multiply extends Expression {
         this.left = left;
         this.right = right;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Multiply){
-            return left.equals(((Multiply)obj).left) &&
-                    right.equals(((Multiply)obj).right);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
 
     @Override
     public Object interpret(Context ctx) {

@@ -19,20 +19,6 @@ public class Lte extends Expression {
         this.left = left;
         this.right = right;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Lte)
-        {
-            return left.equals(((Lte)obj).left) &&
-                    right.equals(((Lte)obj).right);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
 
     @Override
     public Object interpret(Context ctx) {

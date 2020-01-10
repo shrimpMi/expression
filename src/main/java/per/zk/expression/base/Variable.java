@@ -14,18 +14,6 @@ public class Variable extends Expression {
     public Variable(String name){
         this.name = name;
     }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Variable){
-            return this.name.equals(((Variable)obj).name);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.toString().hashCode();
-    }
 
     @Override
     public String toString() {
