@@ -23,7 +23,6 @@ public class PostfixExpressionBuilder {
 
     public static Expression createExpression(String expStr){
         Queue<String> queue = expToIPE(expStr);
-        System.out.println(queue);
         return evaluation(queue);
     }
 

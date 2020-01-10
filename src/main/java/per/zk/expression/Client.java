@@ -15,9 +15,9 @@ public class Client {
 
     public static void main(String[] args) {
         Context ctx = new Context();
-        Expression exp1 = PostfixExpressionBuilder.createExpression("!(x%y>3)");
         ctx.assign("x", 5);
         ctx.assign("y", 3);
-        System.out.println(exp1.toString() + "=" + exp1.interpret(ctx));
+        System.out.println(ExpressionUtils.eval("!(x%y>3)",ctx));
+        System.out.println(ExpressionUtils.eval("!(2*c>3)",new Context("c",2)));
     }
 }

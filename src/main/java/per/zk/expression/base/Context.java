@@ -12,10 +12,21 @@ import java.util.Map;
  */
 public class Context {
 
-    private Map<String,Object> map = new HashMap();
+    private Map<String,Object> map;
 
-    public void assign(String key , Object value){
+    public Context(Map<String, Object> map) {
+        this.map = map;
+    }
+    public Context(String key,Object value) {
+        this.map = new HashMap();
         map.put(key,value);
+    }
+    public Context() {
+        this.map = new HashMap();
+    }
+    public Context assign(String key , Object value){
+        map.put(key,value);
+        return this;
     }
 
     public Object lookup(Variable var) throws IllegalArgumentException{
